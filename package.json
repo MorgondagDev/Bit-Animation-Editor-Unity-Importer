@@ -1,0 +1,21 @@
+{
+  "name": "io.morgondag.bit",
+  "version": "1.0.0",
+  "displayName": "Bit Animation Editor - Unity Importer",
+  "description": "Bit Animation Editor Importer for Unity.\nImport your Bit projects directly to Unity converted to prefabs, animations and 2D sprites on the fly.",
+  "unity": "2019.4",
+  "keywords": [
+    "pixelart",
+    "bit",
+    "importer",
+    "composition",
+    "design",
+    "animations"
+  ],
+  "author": {
+    "name": "Morgondag (Kim Aarnseth)",
+    "email": "kim@morgondag.io",
+    "url": "https://morgondag.io/pages/bit"
+  },
+  "hideInEditor": false
+}
