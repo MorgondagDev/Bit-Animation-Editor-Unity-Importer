@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Bit {
 	public class BitEntity : MonoBehaviour {
-		public string animation = "idle";
+		public string animationName = "idle";
 		public List<BitAsset> assets;
 		public BitEntityDataOptions data;
 		public int currentAnimation = 0;
@@ -22,7 +22,7 @@ namespace Bit {
 			lastAlpha = data.alpha;
 			SetRotateSpeed(data.rotationSpeed);
 			foreach ( BitAsset a in assets ) {
-				a.PlayAnimation(animation);
+				a.PlayAnimation(animationName);
 			}
 			if( !data.animationsEnabled || data.animations.Count <= 0 ) {
 				return;
@@ -53,10 +53,10 @@ namespace Bit {
 		}
 		public void SetAlpha(float alpha) {
 			lastAlpha = alpha;
-			Color alphaColor = assets[0].renderer.color;
+			Color alphaColor = assets[0].assetRenderer.color;
 			alphaColor.a = (float)alpha / 255f;
 			foreach ( BitAsset a in assets ) {
-				a.renderer.color = alphaColor;
+				a.assetRenderer.color = alphaColor;
 			}
 		}
 
@@ -90,42 +90,42 @@ namespace Bit {
 
 		public void setFlipX(int flipX){
 			foreach ( BitAsset a in assets ) {
-				a.renderer.flipX = flipX == 0 ? true : false;
+				a.assetRenderer.flipX = flipX == 0 ? true : false;
 			}
 
 			if(data.mirrorX && data.mirrorY){
-				assets[0].renderer.flipX = flipX == 0 ? true : false;
-				assets[1].renderer.flipX = flipX != 0 ? true : false;
-				assets[2].renderer.flipX = flipX == 0 ? true : false;
-				assets[3].renderer.flipX = flipX != 0 ? true : false;
+				assets[0].assetRenderer.flipX = flipX == 0 ? true : false;
+				assets[1].assetRenderer.flipX = flipX != 0 ? true : false;
+				assets[2].assetRenderer.flipX = flipX == 0 ? true : false;
+				assets[3].assetRenderer.flipX = flipX != 0 ? true : false;
 			} else if(data.mirrorX){
-               	assets[0].renderer.flipX = flipX == 0 ? true : false;
-				assets[1].renderer.flipX = flipX != 0 ? true : false;
+               	assets[0].assetRenderer.flipX = flipX == 0 ? true : false;
+				assets[1].assetRenderer.flipX = flipX != 0 ? true : false;
 			} else if(data.mirrorY){
-                assets[0].renderer.flipX = flipX == 0 ? true : false;
-				assets[1].renderer.flipX = flipX == 0 ? true : false;
+                assets[0].assetRenderer.flipX = flipX == 0 ? true : false;
+				assets[1].assetRenderer.flipX = flipX == 0 ? true : false;
 			} else {
-				assets[0].renderer.flipX = flipX == 0 ? true : false;
+				assets[0].assetRenderer.flipX = flipX == 0 ? true : false;
 			}
 		}
 
 		public void setFlipY(int flipY){
 			foreach ( BitAsset a in assets ) {
-				a.renderer.flipY = flipY == 0 ? true : false;
+				a.assetRenderer.flipY = flipY == 0 ? true : false;
 			}
 			if(data.mirrorX && data.mirrorY){
-				assets[0].renderer.flipY = flipY == 0 ? true : false;
-				assets[1].renderer.flipY = flipY == 0 ? true : false;
-				assets[2].renderer.flipY = flipY != 0 ? true : false;
-				assets[3].renderer.flipY = flipY != 0 ? true : false;
+				assets[0].assetRenderer.flipY = flipY == 0 ? true : false;
+				assets[1].assetRenderer.flipY = flipY == 0 ? true : false;
+				assets[2].assetRenderer.flipY = flipY != 0 ? true : false;
+				assets[3].assetRenderer.flipY = flipY != 0 ? true : false;
 			} else if(data.mirrorX){
-               	assets[0].renderer.flipY = flipY == 0 ? true : false;
-				assets[1].renderer.flipY = flipY == 0 ? true : false;
+               	assets[0].assetRenderer.flipY = flipY == 0 ? true : false;
+				assets[1].assetRenderer.flipY = flipY == 0 ? true : false;
 			} else if(data.mirrorY){
-                assets[0].renderer.flipY = flipY == 0 ? true : false;
-				assets[1].renderer.flipY = flipY != 0 ? true : false;
+                assets[0].assetRenderer.flipY = flipY == 0 ? true : false;
+				assets[1].assetRenderer.flipY = flipY != 0 ? true : false;
 			} else {
-				assets[0].renderer.flipY = flipY == 0 ? true : false;
+				assets[0].assetRenderer.flipY = flipY == 0 ? true : false;
 			}
 		}
 

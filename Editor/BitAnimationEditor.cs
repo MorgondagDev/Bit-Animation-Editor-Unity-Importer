@@ -169,7 +169,6 @@ namespace Bit {
     }
 
     public class BitAnimationEditor : EditorWindow {
-        static int renderScale = 100;
         static float renderScaleMultiplier = 0.01f;
 
         static GameObject CloneInstansiatedPrefab(
@@ -317,7 +316,7 @@ namespace Bit {
                     Animator animator = assetGameObject.AddComponent<Animator>();
                     animator.runtimeAnimatorController = animatorController;
                     assetScript.animator = animator;
-                    assetScript.renderer = assetRenderer;
+                    assetScript.assetRenderer = assetRenderer;
 
                     PrefabUtility.SaveAsPrefabAssetAndConnect(
                         assetGameObject,
@@ -350,7 +349,7 @@ namespace Bit {
                     entityGameObject.transform.parent = canvasGameObject.transform;
 
                     BitEntity entityScript = entityGameObject.AddComponent<BitEntity>();
-                    entityScript.animation = assetData.getAnimationName(entity.data.animationIndex);
+                    entityScript.animationName = assetData.getAnimationName(entity.data.animationIndex);
                     entity.data.assetId = entity.assetId;
                     entity.data.id = entity.id;
                     entity.data.name = entity.name;

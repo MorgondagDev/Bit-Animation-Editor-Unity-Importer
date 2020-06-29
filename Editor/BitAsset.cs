@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Bit {
 	public class BitAsset : MonoBehaviour {
-	    public SpriteRenderer renderer;
+	    public SpriteRenderer assetRenderer;
 	    public Animator animator;
 	    public float localRotation = 0f;
 	    public bool isMirroredX = false;
