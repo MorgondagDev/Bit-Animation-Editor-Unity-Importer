@@ -1,7 +1,10 @@
 using UnityEngine;
 
-using UnityEditor;
-using UnityEditor.Animations;
+#if UNITY_EDITOR
+    using UnityEditor;
+    using UnityEditor.Animations;
+    using System.Linq;
+#endif
 
 using System;
 using System.Collections;
@@ -10,8 +13,6 @@ using System.IO;
 using System.IO.Compression;
 using System.Text;
 using System.Runtime.Serialization.Formatters.Binary;
-
-using System.Linq;
 
 namespace Bit {
     [Serializable]
@@ -167,6 +168,8 @@ namespace Bit {
         public bool hasMirrorDistanceY;
         public float mirrorDistanceY;
     }
+
+    #if UNITY_EDITOR
 
     public class BitAnimationEditor : EditorWindow {
         static float renderScaleMultiplier = 0.01f;
@@ -745,6 +748,9 @@ namespace Bit {
             }
         }
     }
+
+    #endif
+
 
     static public class Tween{
         static public float EaseLinear(float e, float t, float n, float r) {

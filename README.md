@@ -34,9 +34,6 @@ Select your exported zip bundle.
 ![Image](step4.png?raw=true)
 
 
-![Image](flow.gif?raw=true)
-
-
 **From Bit Animation Editor to Unity**
 ![Image](import.png?raw=true)
 
