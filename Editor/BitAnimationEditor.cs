@@ -96,6 +96,7 @@ namespace Bit {
         public int rotation;
         public int rotateRepeat;
         public int rotateRepeatSpace;
+        public int scale = 1;
         public Vector2 position;
         public int defaultTile;
         public Vector2 mirror;
@@ -167,6 +168,8 @@ namespace Bit {
         public float mirrorDistanceX;
         public bool hasMirrorDistanceY;
         public float mirrorDistanceY;
+        public bool hasScale;
+        public int scale;
     }
 
     #if UNITY_EDITOR
@@ -341,9 +344,10 @@ namespace Bit {
                 canvasRenderer.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
                 canvasRenderer.material = defaultMaterial;
 
-                Vector3 scaleVector = new Vector3(currentProject.scale, currentProject.scale, currentProject.scale);
+                Vector3 projectScaleVector = new Vector3(currentProject.scale, currentProject.scale, currentProject.scale);
 
                 for (int x = currentProject.scene.Count-1; x >= 0; x--){
+
                     List<GameObject> children = new List<GameObject>();
 
                     BitEntityData entity = currentProject.scene[x];
@@ -359,6 +363,13 @@ namespace Bit {
                     entityScript.data = entity.data;
                     entityScript.assetData = assetData;
                     entityScript.assets = new List<BitAsset>();
+                    entityScript.baseScale = currentProject.scale;
+
+                    Vector3 scaleVector = new Vector3(
+                        currentProject.scale + (entity.data.scale-1),
+                        currentProject.scale + (entity.data.scale-1),
+                        currentProject.scale + (entity.data.scale-1)
+                    );
 
                     UnityEngine.Object assetPrefab = (UnityEngine.Object)AssetDatabase.LoadAssetAtPath("Assets/Resources/Bit/" + currentProject.id + "/prefabs/" + entity.assetId + ".prefab", typeof(UnityEngine.Object));
                     GameObject currentAsset = PrefabUtility.InstantiatePrefab(assetPrefab) as GameObject;

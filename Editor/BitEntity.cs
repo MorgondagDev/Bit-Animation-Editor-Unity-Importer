@@ -9,17 +9,21 @@ namespace Bit {
 		public BitEntityDataOptions data;
 		public int currentAnimation = 0;
 		public BitAssetData assetData;
+		public int baseScale = 1;
 
 		float lastRotation = 0;
 		float lastRotateSpeed = 0;
 		float lastAlpha = 0;
 		float lastMirrorDistanceX = 0;
 		float lastMirrorDistanceY = 0;
+		float lastScale = 0;
 
 		void Start() {
 			lastRotateSpeed = data.rotationSpeed;
 			lastRotation = data.rotation;
 			lastAlpha = data.alpha;
+			lastScale = (baseScale-1) + data.scale;
+
 			SetRotateSpeed(data.rotationSpeed);
 			foreach ( BitAsset a in assets ) {
 				a.PlayAnimation(animationName);
@@ -45,12 +49,20 @@ namespace Bit {
 			}
 		}
 
+		public void SetScale(float scale) {
+			lastScale = Mathf.Round(scale);
+			foreach ( BitAsset a in assets ) {
+				a.transform.localScale = new Vector3(scale +(baseScale-1), scale +(baseScale-1), scale  +(baseScale-1));
+			}
+		}
+
 		public void SetRotation(float rotation) {
 			lastRotation = rotation;
 			foreach ( BitAsset a in assets ) {
 				a.transform.eulerAngles = new Vector3( 0, 0, a.isMirroredX ? -rotation : rotation );
 			}
 		}
+
 		public void SetAlpha(float alpha) {
 			lastAlpha = alpha;
 			Color alphaColor = assets[0].assetRenderer.color;
@@ -159,6 +171,12 @@ namespace Bit {
 				toRotationValue = animation.data.rotation - lastRotation;
 			}
 
+			float fromScaleValue = lastScale;
+			float toScaleValue = lastScale;
+			if( animation.data.hasScale ){
+				toScaleValue = animation.data.scale - lastScale;
+			}
+
 			float fromAlphaValue = lastAlpha;
 			float toAlphaValue = lastAlpha;
 			if( animation.data.hasAlpha ){
@@ -202,6 +220,11 @@ namespace Bit {
 				if(animation.data.hasRotation){
 					float currentRotationValue = Tween.animate(1, fromRotationValue, toRotationValue, 1, animation.easing);
 					SetRotation(currentRotationValue);
+				}
+
+				if(animation.data.hasScale){
+					float currentScaleValue = Tween.animate(1, fromScaleValue, toScaleValue, 1, animation.easing);
+					SetScale(currentScaleValue);
 				}
 
 				if(animation.data.hasAlpha){
@@ -254,6 +277,11 @@ namespace Bit {
 				if(animation.data.hasRotation){
 					float currentRotationValue = Tween.animate(currentTime, fromRotationValue, toRotationValue, fixedDuration, animation.easing);
 					SetRotation(currentRotationValue);
+				}
+
+				if(animation.data.hasScale){
+					float currentScaleValue = Tween.animate(currentTime, fromScaleValue, toScaleValue, fixedDuration, animation.easing);
+					SetScale( Mathf.Floor(currentScaleValue));
 				}
 
 				if(animation.data.hasAlpha){
